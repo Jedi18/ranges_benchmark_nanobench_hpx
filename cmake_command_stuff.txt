@@ -1,0 +1,6 @@
+cmake -DCMAKE_BUILD_TYPE=Release -DHPX_DIR=C:\Users\targe\Documents\hpx1\build\lib\cmake\HPX -Drange-v3_DIR=C:\Users\targe\Documents\vcpkg\packages\range-v3_x86-windows\share\range-v3 ..
+
+/work/jedi18/src/hpx/build/lib/cmake/HPX 
+/work/jedi18/src/range-v3/build
+
+--benchmark_out=<filename> --benchmark_out_format=json
