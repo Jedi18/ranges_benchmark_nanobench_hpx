@@ -5,12 +5,12 @@
 #SBATCH -p buran
 #SBATCH -N 1
 
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name UNIQUE_REPLACE_IF_TRANSFORM --benchmark_out=unique_replace_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name UNIQUE_REMOVE_IF_TRANSFORM --benchmark_out=unique_remove_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name REVERSE_REPLACE_IF_TRANSFORM --benchmark_out=reverse_replace_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name REVERSE_REMOVE_IF_TRANSFORM --benchmark_out=reverse_remove_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name TRANSFORM_TRANSFORM --benchmark_out=transform_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name REPLACE_IF_TRANSFORM --benchmark_out=replace_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name REMOVE_IF_TRANSFORM --benchmark_out=remove_if_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name UNIQUE_TRANSFORM --benchmark_out=unique_transform.json --benchmark_out_format=json
-srun /work/jedi18/src/RangesBenchmark/build/bin/main --algorithm_name REVERSE_TRANSFORM --benchmark_out=reverse_transform.json --benchmark_out_format=json
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name UNIQUE_REPLACE_IF_TRANSFORM --output unique_replace_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name UNIQUE_REMOVE_IF_TRANSFORM --output unique_remove_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name REVERSE_REPLACE_IF_TRANSFORM --output reverse_replace_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name REVERSE_REMOVE_IF_TRANSFORM --output reverse_remove_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name TRANSFORM_TRANSFORM --output transform_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name REPLACE_IF_TRANSFORM --output replace_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name REMOVE_IF_TRANSFORM --output remove_if_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name UNIQUE_TRANSFORM --output unique_transform.csv
+srun /work/jedi18/src/ranges_benchmark_nanobench_hpx/build/bin/main --algorithm_name REVERSE_TRANSFORM --output reverse_transform.csv
