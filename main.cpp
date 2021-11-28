@@ -51,7 +51,7 @@ void normal_benchmark(ExPolicy policy, std::string const& policy_name, ALGORITHM
 		std::generate(arr.begin(), arr.end(),
 			[&]() { return dist(mersenne_engine); });
 
-		std::vector<int> res(size);
+		std::vector<int> res(size), res1(size);
 
 		ankerl::nanobench::Bench().output(nullptr).run(policy_name.c_str(), [&]() {
 
@@ -87,8 +87,8 @@ void normal_benchmark(ExPolicy policy, std::string const& policy_name, ALGORITHM
 			}
 			case ALGORITHM_NAME::TRANSFORM_TRANSFORM:
 			{
-				hpx::transform(policy, arr.begin(), arr.end(), res.begin(), [](auto const& elem) {return elem * 2; });
-				hpx::transform(policy, arr.begin(), arr.end(), res.begin(), [](auto const& elem) {return elem * 2; });
+				hpx::transform(policy, arr.begin(), arr.end(), res1.begin(), [](auto const& elem) {return elem * 2; });
+				hpx::transform(policy, res1.begin(), res1.end(), res.begin(), [](auto const& elem) {return elem * 2; });
 				break;
 			}
 			case ALGORITHM_NAME::REPLACE_IF_TRANSFORM:
