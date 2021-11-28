@@ -29,11 +29,22 @@ enum class ALGORITHM_NAME
 	REVERSE_TRANSFORM,
 };
 
+std::vector<unsigned int> generateSeedArr(std::size_t maxi) {
+	std::vector<unsigned int> seed_arr(maxi);
+
+	srand(time(0));
+	std::generate(seed_arr.begin(), seed_arr.end(), []() {
+		return rand() % MAX_VAL;
+		});
+
+	return seed_arr;
+}
+
 template<typename ExPolicy>
-void normal_benchmark(ExPolicy policy, std::string const& policy_name, ALGORITHM_NAME algo, std::size_t till, std::ofstream& out) {
-	for (int size = 32; size < till; size<<=1) {
-		std::random_device rnd_device;
-		std::mt19937 mersenne_engine{ rnd_device() };
+void normal_benchmark(ExPolicy policy, std::string const& policy_name, ALGORITHM_NAME algo, std::size_t till, std::ofstream& out, std::vector<unsigned int>& const seed_arr) {
+	int j = 5;
+	for (int size = 32; size < till; size <<= 1, j++) {
+		std::mt19937 mersenne_engine{ seed_arr[j] };
 		std::uniform_int_distribution<int> dist{ 1, MAX_VAL };
 
 		std::vector<int> arr(size);
@@ -108,13 +119,13 @@ void normal_benchmark(ExPolicy policy, std::string const& policy_name, ALGORITHM
 
 			ankerl::nanobench::doNotOptimizeAway(res);
 			}).render(ankerl::nanobench::templates::csv(), out);
-	 }
+	}
 }
 
-void range_benchmark(std::string const& name, ALGORITHM_NAME algo, std::size_t till, std::ofstream& out) {
-	for (int size = 32; size < till; size <<= 1) {
-		std::random_device rnd_device;
-		std::mt19937 mersenne_engine{ rnd_device() };
+void range_benchmark(std::string const& name, ALGORITHM_NAME algo, std::size_t till, std::ofstream& out, std::vector<unsigned int>& const seed_arr) {
+	int j = 5;
+	for (int size = 32; size < till; size <<= 1, j++) {
+		std::mt19937 mersenne_engine{ seed_arr[j] };
 		std::uniform_int_distribution<int> dist{ 1, MAX_VAL };
 
 		std::vector<int> arr(size);
@@ -204,11 +215,13 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 	std::size_t start = 32;
 	std::size_t till = 1 << max_i;
 
+	std::vector<unsigned int> seed_arr = generateSeedArr(max_i);
+
 	std::ofstream out(algorithm_filename);
 
-	normal_benchmark(hpx::execution::seq, "seq_normal", algo, till, out);
-	normal_benchmark(hpx::execution::par, "par_normal", algo, till, out);
-	range_benchmark("range", algo, till, out);
+	normal_benchmark(hpx::execution::seq, "seq_normal", algo, till, out, seed_arr);
+	normal_benchmark(hpx::execution::par, "par_normal", algo, till, out, seed_arr);
+	range_benchmark("range", algo, till, out, seed_arr);
 
 	return hpx::local::finalize();
 }
